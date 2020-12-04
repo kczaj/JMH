@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package camera;
 
 import java.io.BufferedReader;
@@ -14,10 +9,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-/**
- *
- * @author Paweł
- */
 public class ReadFile {
 
     private File file;
@@ -32,25 +23,42 @@ public class ReadFile {
         this.bufferedReader = new BufferedReader(this.fileReader);
     }
 
-    public ArrayList<Line3D> load() throws IOException {
+    public ArrayList<Figure> load() throws IOException {
+        ArrayList<Figure> figures = new ArrayList<>();
         ArrayList<Line3D> lines = new ArrayList<>();
-        String line;
+        String line, color = null;
+        double[] values;
         while (bufferedReader.readLine() != null) {
             line = scanner.next();
-            double[] value = new double[6];
-            StringTokenizer st = new StringTokenizer(line, ";");
-            if (st.countTokens() == 6) {
-                value[0] = Double.valueOf(st.nextToken());
-                value[1] = Double.valueOf(st.nextToken());
-                value[2] = Double.valueOf(st.nextToken());
-                value[3] = Double.valueOf(st.nextToken());
-                value[4] = Double.valueOf(st.nextToken());
-                value[5] = Double.valueOf(st.nextToken());
+            if (line.contains(";") == false) {
+                if (lines.size() > 0) {
+                    figures.add(new Figure(color, lines));
+                    lines = new ArrayList<>();
+                }
+                color = line;
             } else {
-                throw new IOException("Wrong fommat of data!");
+                values = loadLine3D(line);
+                lines.add((new Line3D(new Point3D(values[0], values[1], values[2]), new Point3D(values[3], values[4], values[5]))));
             }
-            lines.add((new Line3D(new Point3D(value[0], value[1], value[2]), new Point3D(value[3], value[4], value[5]))));
+
         }
-        return lines;
+        figures.add(new Figure(color, lines));
+        return figures;
+    }
+
+    private double[] loadLine3D(String line) throws IOException {
+        double[] values = new double[6];
+        StringTokenizer st = new StringTokenizer(line, ";");
+        if (st.countTokens() == 6) {
+            values[0] = Double.valueOf(st.nextToken());
+            values[1] = Double.valueOf(st.nextToken());
+            values[2] = Double.valueOf(st.nextToken());
+            values[3] = Double.valueOf(st.nextToken());
+            values[4] = Double.valueOf(st.nextToken());
+            values[5] = Double.valueOf(st.nextToken());
+        } else {
+            throw new IOException("Wrong fommat of data!");
+        }
+        return values;
     }
 }
