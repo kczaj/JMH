@@ -13,6 +13,7 @@ public class SolveTest {
         Maze m = new Maze(10);
         m.generateMain();
         BFS bfs = new BFS(m);
+        bfs.solveWholeGraph();
         assertEquals(true, true);
     }
 }

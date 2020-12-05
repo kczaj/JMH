@@ -9,7 +9,7 @@ public class GenerateTest {
 
     @Test
     public void test(){
-        Maze m = new Maze(100);
+        Maze m = new Maze(10);
         m.generateMain();
         assertEquals(true, true);
     }

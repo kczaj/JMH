@@ -133,11 +133,19 @@ public class Maze{
 
     public void buildVerticalWall(int index, int bound, int up, int down) {
         //dorysowuje ścianę też na początku
+        addWallVertically(index, up, down);
+        Random random = new Random();
+        makeHoleInVertWall(up, bound, index, random);
+        ifRandomEqualsOneVert(index, bound, up, random);
+    }
+
+    public void addWallVertically(int index, int up, int down) {
         for (int i = up; i < down; i++) {
             maze.set(index + size * i, "+");
         }
-        Random random = new Random();
-        makeHoleInVertWall(up, bound, index, random);
+    }
+
+    public void ifRandomEqualsOneVert(int index, int bound, int up, Random random) {
         if (random.nextInt(10) == 1) {
             makeHoleInVertWall(up, bound, index, random);
         }
@@ -153,16 +161,25 @@ public class Maze{
 
     public void buildHorizontalWall(int index, int bound, int left, int right) {
         //dorysowuje ścianę też na początku
+        addWallHorizonatlly(index, left, right);
+        Random random = new Random();
+        makeHoleInHorzWall(left, bound, index, random);
+        ifRandomEqualsOneHoriz(index, bound, left, random);
+    }
+
+    public void addWallHorizonatlly(int index, int left, int right) {
         for (int i = left; i < right; i++) {
             maze.set(index * size + i, "+");
         }
-        Random random = new Random();
-        makeHoleInHorzWall(left, bound, index, random);
+    }
+
+    public void ifRandomEqualsOneHoriz(int index, int bound, int left, Random random) {
         if(random.nextInt(10) == 1){
             makeHoleInHorzWall(left, bound, index, random);
         }
-
     }
+
+
 
     private void makeHoleInHorzWall(int left, int bound, int index, Random random) {
         int holeIndex = left + random.nextInt(bound);
