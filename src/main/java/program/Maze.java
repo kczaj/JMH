@@ -52,6 +52,10 @@ public class Maze{
     public void generateMain() {
         prepare();
         generate(0, size - 1, 0, size - 1);
+        makeEntranceAndExit();
+    }
+
+    public void makeEntranceAndExit() {
         Random random = new Random();
         int entrance = random.nextInt(size - 1);
         while (entrance % 2 == 0) {
