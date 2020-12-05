@@ -49,7 +49,7 @@ public class Maze{
         pr.close();
     }
 
-    public void generate() {
+    public void generateMain() {
         prepare();
         generate(0, size - 1, 0, size - 1);
         Random random = new Random();
@@ -65,7 +65,7 @@ public class Maze{
         maze.set((size - 1) * size + exit, "*");
     }
 
-    private void prepare() {
+    public void prepare() {
         for (int i = 0; i < size; i++) {
             maze.add("+");
         }
@@ -81,7 +81,7 @@ public class Maze{
         }
     }
 
-    private void generate(int left, int right, int up, int down) {
+    public void generate(int left, int right, int up, int down) {
         int horizontal = right - left;
         int vertical = down - up;
         int done = 0;
@@ -127,7 +127,7 @@ public class Maze{
 
     }
 
-    private void buildVerticalWall(int index, int bound, int up, int down) {
+    public void buildVerticalWall(int index, int bound, int up, int down) {
         //dorysowuje ścianę też na początku
         for (int i = up; i < down; i++) {
             maze.set(index + size * i, "+");
@@ -147,7 +147,7 @@ public class Maze{
         maze.set(index + holeIndex * size, "0");
     }
 
-    private void buildHorizontalWall(int index, int bound, int left, int right) {
+    public void buildHorizontalWall(int index, int bound, int left, int right) {
         //dorysowuje ścianę też na początku
         for (int i = left; i < right; i++) {
             maze.set(index * size + i, "+");

@@ -20,6 +20,10 @@ public class BFS {
         wall = new Node(-1, null, null, null, null);
         queue = new MyQueue<Node>();
         solvedMaze = new ArrayList<Integer>();
+        solveWholeGraph();
+    }
+
+    public void solveWholeGraph() {
         makeGraph();
         solveMaze();
         printSolution();

@@ -21,12 +21,12 @@ public class Main extends Application {
     public static void main(String[] args) throws IOException {
 
         Maze maze1 = new Maze(5);
-        maze1.generate();
+        maze1.generateMain();
         System.out.println("Labirynt: 5 pól");
         printMaze(maze1);
         System.out.println();
         Maze maze2 = new Maze(10);
-        maze2.generate();
+        maze2.generateMain();
         System.out.println("Labirynt: 10 pól i zapisanie do pliku");
         printMaze(maze2);
         System.out.println();
@@ -37,7 +37,7 @@ public class Main extends Application {
 //        System.out.println();
 
         Maze mazeToSolve = new Maze(4);
-        mazeToSolve.generate();
+        mazeToSolve.generateMain();
         BFS bfs = new BFS(mazeToSolve);
         Tremaux tremaux = new Tremaux(mazeToSolve);
 
