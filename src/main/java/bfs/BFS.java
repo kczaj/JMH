@@ -28,7 +28,7 @@ public class BFS {
         printSolution();
     }
 
-    private void makeGraph() {
+    public void makeGraph() {
         int number = 1;
         int size = maze.getSize();
         List<String> mazeMap = maze.getMaze();
@@ -92,7 +92,7 @@ public class BFS {
         }
     }
 
-    private void solveMaze() {
+    public void solveMaze() {
         Node node = first;
         queue.push(first);
         List<Integer> used = new ArrayList<Integer>();
@@ -134,7 +134,7 @@ public class BFS {
         solvedMaze.add(node.getIndex());
     }
 
-    private void printSolution() {
+    public void printSolution() {
         for (Integer i : solvedMaze) {
             System.out.print(i + " ");
             if (solvedMaze.get(solvedMaze.size() - 1).compareTo(i) != 0) {
