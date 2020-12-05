@@ -151,7 +151,7 @@ public class Maze{
         }
     }
 
-    private void makeHoleInVertWall(int up, int bound, int index, Random random) {
+    public void makeHoleInVertWall(int up, int bound, int index, Random random) {
         int holeIndex = up + random.nextInt(bound);
         while (holeIndex % 2 == 0) {
             holeIndex = up + random.nextInt(bound);
@@ -181,7 +181,7 @@ public class Maze{
 
 
 
-    private void makeHoleInHorzWall(int left, int bound, int index, Random random) {
+    public void makeHoleInHorzWall(int left, int bound, int index, Random random) {
         int holeIndex = left + random.nextInt(bound);
         while (holeIndex % 2 == 0) {
             holeIndex = left + random.nextInt(bound);
