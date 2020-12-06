@@ -8,8 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class BenchmarkSolve {
 
     @State(Scope.Benchmark)
-    public static class MyState {
-
+    public static class BfsState {
         public Maze maze;
         public BFS bfsNew;
         public BFS bfsWithGraph;
@@ -17,17 +16,10 @@ public class BenchmarkSolve {
         public int size = 10;
 
         @Setup(Level.Iteration)
-        public void doMaze() {
-            maze = new Maze(size);
+        public void prepareMaze() {
+            Maze maze = new Maze(size);
             maze.generateMain();
-            bfsNew = new BFS(maze);
-            bfsWithGraph = new BFS(maze);
-            bfsSolved = new BFS(maze);
-
-            bfsWithGraph.makeGraph();
-            bfsSolved.makeGraph();
-
-            bfsSolved.solveMaze();
+            BFS bfs = new BFS(maze);
         }
 
         @TearDown(Level.Iteration)
@@ -42,8 +34,10 @@ public class BenchmarkSolve {
     @Fork(value = 1, warmups = 4)
     @Warmup(iterations = 3, time = 1)
     @Measurement(iterations = 5, time = 2)
-    public void testMakeGraph(MyState state) {
-        state.bfsNew.makeGraph();
+    public void preparationTime(BfsState bfsState) {
+        Maze maze = new Maze(10);
+        maze.generateMain();
+        BFS bfs = new BFS(maze);
     }
 
     @Benchmark
@@ -52,8 +46,11 @@ public class BenchmarkSolve {
     @Fork(value = 1, warmups = 4)
     @Warmup(iterations = 3, time = 1)
     @Measurement(iterations = 5, time = 2)
-    public void testSolveMaze(MyState state) {
-        state.bfsWithGraph.solveMaze();
+    public void testMakeGraph(BfsState bfsState) {
+        Maze maze = new Maze(10);
+        maze.generateMain();
+        BFS bfs = new BFS(maze);
+        bfs.makeGraph();
     }
 
     @Benchmark
@@ -62,7 +59,26 @@ public class BenchmarkSolve {
     @Fork(value = 1, warmups = 4)
     @Warmup(iterations = 3, time = 1)
     @Measurement(iterations = 5, time = 2)
-    public void testPrintSolution(MyState state) {
-        state.bfsSolved.printSolution();
+    public void testSolve(BfsState bfsState) {
+        Maze maze = new Maze(10);
+        maze.generateMain();
+        BFS bfs = new BFS(maze);
+        bfs.makeGraph();
+        bfs.solveMaze();
+    }
+
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.MICROSECONDS)
+    @Fork(value = 1, warmups = 4)
+    @Warmup(iterations = 3, time = 1)
+    @Measurement(iterations = 5, time = 2)
+    public void testPrint(BfsState bfsState) {
+        Maze maze = new Maze(10);
+        maze.generateMain();
+        BFS bfs = new BFS(maze);
+        bfs.makeGraph();
+        bfs.solveMaze();
+        bfs.printSolution();
     }
 }
