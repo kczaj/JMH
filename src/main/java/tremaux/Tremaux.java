@@ -19,12 +19,17 @@ public class Tremaux {
         mazeMap = new ArrayList<String>();
         copyMaze(maze);
         this.explorer = new Explorer(maze);
-        startSolving(maze);
+//        startSolving(maze);
         Main.mazeMap = mazeMap;
     }
 
-    private void startSolving(Maze maze) {
+    public void startSolving(Maze maze) {
         int size = maze.getSize();
+        performMazeSolve(size);
+        drawPath(size);
+    }
+
+    public void performMazeSolve(int size) {
         while (mazeMap.get((explorer.getY() + 1) * size + explorer.getX()).compareTo("*") != 0) {
             int x = explorer.getX();
             int y = explorer.getY();
@@ -63,7 +68,6 @@ public class Tremaux {
 
         }
 
-        drawPath(size);
     }
 
     private List<Integer> indexList(String[] signs) {
@@ -76,7 +80,7 @@ public class Tremaux {
         return list;
     }
 
-    private void drawPath(int size) {
+    public void drawPath(int size) {
         while (mazeMap.get((explorer.getY() - 1) * size + explorer.getX()).compareTo("#") != 0) {
             int x = explorer.getX();
             int y = explorer.getY();

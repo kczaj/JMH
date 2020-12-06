@@ -30,7 +30,7 @@ public class Main extends Application {
         System.out.println("Labirynt: 10 pól i zapisanie do pliku");
         printMaze(maze2);
         System.out.println();
-        maze2.save("src\\main\\resources\\mazeToLoad.txt");
+//        maze2.save("src/main/resources/mazeToLoad.txt");
 //        Maze maze3 = new Maze("src\\main\\resources\\mazeToLoad.txt");
 //        System.out.println("Labirynt wczytany z poprzedniego zapisu");
 //        printMaze(maze3);
@@ -40,6 +40,7 @@ public class Main extends Application {
         mazeToSolve.generateMain();
         BFS bfs = new BFS(mazeToSolve);
         Tremaux tremaux = new Tremaux(mazeToSolve);
+        tremaux.startSolving(mazeToSolve);
 
         visualMaze(args);
     }

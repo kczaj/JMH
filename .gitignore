@@ -7,3 +7,6 @@
 # Maven
 log/
 target/
+
+# output
+src/main/resources/
